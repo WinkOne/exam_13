@@ -1,0 +1,44 @@
+import React, {useState} from 'react';
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItem from "@material-ui/core/ListItem";
+import Divider from "@material-ui/core/Divider";
+import Avatar from "../../Avatar/Avatar";
+
+const UserMenu = ({user, logout}) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    return (
+        <>
+            <IconButton color="inherit" onClick={handleClick}>
+                <Avatar
+                    avatar={user.avatar}
+                />
+            </IconButton>
+
+            <Menu
+                id="menu-list-grow"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                variant="menu"
+            >
+                <ListItem disabled>Hello, {user.displayName || user.username}!</ListItem>
+                <Divider/>
+                <MenuItem onClick={logout}>Logout</MenuItem>
+
+            </Menu>
+        </>
+    );
+};
+
+export default UserMenu;
